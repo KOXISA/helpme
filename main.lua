@@ -1,0 +1,5 @@
+local composer = require("composer")
+require( "puggle.core" )
+
+composer.setVariable("time", 160)
+composer.gotoScene("menu")
