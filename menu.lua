@@ -18,7 +18,7 @@ function scene:create( event )
 
     local sceneGroup = self.view
     display.setStatusBar(display.HiddenStatusBar)
-    local textCurrentScore = display.newText("Current Score: " .. puggle.data:get("score"), display.contentCenterX, 0, native.systemFont, 25)
+    local textCurrentScore = display.newText("Current Score: " .. (puggle.data:get("score") or 0), display.contentCenterX, 0, native.systemFont, 25)
     textCurrentScore:setFillColor(255 / 255, 0 / 255, 0 / 255)
     sceneGroup:insert(textCurrentScore)
     local textStart = display.newText("Start", display.contentCenterX, display.contentCenterY, native.systemFont, 50)
