@@ -1,5 +1,6 @@
 local composer = require( "composer" )
 local json = require("json")
+require( "puggle.core" )
 
 local scene = composer.newScene()
 
@@ -18,20 +19,21 @@ function scene:create( event )
 
     local sceneGroup = self.view
     display.setStatusBar(display.HiddenStatusBar)
-    local textCurrentScore = display.newText("Current Score: " .. (puggle.data:get("score") or 0), display.contentCenterX, 0, native.systemFont, 25)
+    local textCurrentScore = display.newText("Current Score: " .. composer.getVariable("score"), display.contentCenterX, 0, native.systemFont, 25)
     textCurrentScore:setFillColor(255 / 255, 0 / 255, 0 / 255)
     sceneGroup:insert(textCurrentScore)
     local textStart = display.newText("Start", display.contentCenterX, display.contentCenterY, native.systemFont, 50)
     sceneGroup:insert(textStart)
+    puggle.data:setIfHigher("best", composer.getVariable("score"))
     local textHighscore = display.newText("Bestscore: " .. ( puggle.data:get( "best" ) or 0 ), display.contentCenterX, display.contentHeight - 50, native.systemFont, 25)
     textHighscore:setFillColor(255 / 255, 0 / 255, 0 / 255)
     sceneGroup:insert(textHighscore)
 
     local function gotoGame()
+        composer.setVariable("score", 0)
         composer.setVariable("time", 160)
         composer.gotoScene("game")
     end
-    puggle.data:set("score", 0)
     textStart:addEventListener("tap", gotoGame)
 end
 
